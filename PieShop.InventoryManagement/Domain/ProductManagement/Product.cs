@@ -1,19 +1,20 @@
 ﻿namespace PieShop.InventoryManagement;
 
-public class Product
+public partial class Product
 {
 	public Product(int id) : this(id, string.Empty) {
 	}
 
 	public Product(int id, string name) {
-		Id = id;
-		Name = name;
+		this.Id = id;
+		this.Name = name;
 	}
 
-	public Product(int id, string name, string? description, UnitType unitType, int maxAmountInStock) {
+	public Product(int id, string name, string? description, Price price, UnitType unitType, int maxAmountInStock) {
 		Id = id;
 		Name = name;
 		Description = description;
+		Price = price;
 		UnitType = unitType;
 		maxItemsInStock = maxAmountInStock
 
@@ -53,6 +54,7 @@ public class Product
 	public UnitTtype UnitTtype { get; set; }
 	public int AmountInStock { get; private set; }
 	public bool IsBelowStockThreshold { get; private set;}
+	public Price Price { get; set;}
 
 	public void UseProduct(int items) {
 		if (items <= AmountInStock)	{
@@ -105,11 +107,6 @@ public class Product
 		_logger.Log(reason);
 	}
 
-	private void UpdateLowStock() {
-		if (AmountInStock < 10) {
-			isBelowStockThreshold = true;
-		}
-	}
 
 	private string DisplayDetailsShort() {
 		return $"{id} {Name} \n{AmountInStock} items in stock"
@@ -118,7 +115,7 @@ public class Product
 	private string DisplayDetailsFull() {
 		// StringBuilder sb = new();
 		// //ToDo: add price here 
-		// sb.Append($"{id} {Name} \n{descriprtion}\n{AmountInStock} item(s) in stock");
+		// sb.Append($"{id} {Name} \n{description}\n{Price}\n{AmountInStock} item(s) in stock");
 
 		// if (isBelowStockThreshold) {
 		// 	sb.Append("\n!! LOW STOCK !!");
@@ -129,9 +126,9 @@ public class Product
 	}
 
 	privage string DisplayDetailsFull(string extraDetails) {
-StringBuilder sb = new();
+		StringBuilder sb = new();
 		//ToDo: add price here 
-		sb.Append($"{id} {Name} \n{descriprtion}\n{AmountInStock} item(s) in stock");
+		sb.Append($"{id} {Name} \n{description}\n{Price}\n{AmountInStock} item(s) in stock");
 		sb.Append(extraDetails)
 
 		if (isBelowStockThreshold) {
@@ -141,9 +138,8 @@ StringBuilder sb = new();
 		return sb.ToString();
 	}
 
-	private string CreateSimpleProdutRepresentation() {
-		return $"Product {id} ({name})";
-	}
+	
+
 
 
 	
