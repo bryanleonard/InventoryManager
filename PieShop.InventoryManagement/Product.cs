@@ -2,7 +2,23 @@
 
 public class Product
 {
-	public Product() {}
+	public Product(int id) : this(id, string.Empty) {
+	}
+
+	public Product(int id, string name) {
+		Id = id;
+		Name = name;
+	}
+
+	public Product(int id, string name, string? description, UnitType unitType, int maxAmountInStock) {
+		Id = id;
+		Name = name;
+		Description = description;
+		UnitType = unitType;
+		maxItemsInStock = maxAmountInStock
+
+		UpdateLowStock();
+	}
 
 	private readonly Logger _logger = new();
 
@@ -51,6 +67,27 @@ public class Product
 		}
 	}
 
+	public void IncreaseStock() {
+		AmountInStock++;
+	}
+
+	public void IncreaseStock(int amount) {
+		int newStock = AmountInStock + amount;
+
+		if (newStock <= maxItemsInStock) {
+			AmountInStock += amount;
+		}
+		else {
+			AmountInStock = maxItemsInStock;
+			_logger.Log($"{CreateSimpleProdutRepresentation} stock overflow. {newStock - AmountInStock} item(s) ordered that couldn't be stored.");
+		}
+
+		if (AmountInStock > 10) {
+			IsBelowStockThreshold = false;
+		}
+
+	}
+
 	public void IncreaseStock(int items = 1) {
 		AmountInStock += items;
 	}
@@ -79,15 +116,29 @@ public class Product
 	}
 
 	private string DisplayDetailsFull() {
-		StringBuilder sb = new();
+		// StringBuilder sb = new();
+		// //ToDo: add price here 
+		// sb.Append($"{id} {Name} \n{descriprtion}\n{AmountInStock} item(s) in stock");
+
+		// if (isBelowStockThreshold) {
+		// 	sb.Append("\n!! LOW STOCK !!");
+		// }
+
+		// return sb.ToString();
+		DisplayDetailsFull("");
+	}
+
+	privage string DisplayDetailsFull(string extraDetails) {
+StringBuilder sb = new();
 		//ToDo: add price here 
 		sb.Append($"{id} {Name} \n{descriprtion}\n{AmountInStock} item(s) in stock");
+		sb.Append(extraDetails)
 
 		if (isBelowStockThreshold) {
 			sb.Append("\n!! LOW STOCK !!");
 		}
 
-		return sb.ToString()
+		return sb.ToString();
 	}
 
 	private string CreateSimpleProdutRepresentation() {
