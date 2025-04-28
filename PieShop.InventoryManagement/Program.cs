@@ -1,2 +1,24 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+PrintWelcome();
+
+#region Layout
+
+static voic PrintWelcome() {
+	Console.WriteLine("Welcome to the 🥧👩🏼‍🍳");
+	Console.WriteLine("
+	_________          _______    _______ _________ _______    _______           _______  _______ 
+	\__   __/|\     /|(  ____ \  (  ____ )\__   __/(  ____ \  (  ____ \|\     /|(  ___  )(  ____ )
+		) (   | )   ( || (    \/  | (    )|   ) (   | (    \/  | (    \/| )   ( || (   ) || (    )|
+		| |   | (___) || (__      | (____)|   | |   | (__      | (_____ | (___) || |   | || (____)|
+		| |   |  ___  ||  __)     |  _____)   | |   |  __)     (_____  )|  ___  || |   | ||  _____)
+		| |   | (   ) || (        | (         | |   | (              ) || (   ) || |   | || (      
+		| |   | )   ( || (____/\  | )      ___) (___| (____/\  /\____) || )   ( || (___) || )      
+		)_(   |/     \|(_______/  |/       \_______/(_______/  \_______)|/     \|(_______)|/      
+	");
+	Console.WriteLine("Press enter to log in");
+	Console.Readline();
+	Console.Clear();
+}
+
+#endregion
+
